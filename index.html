@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>健康管理アプリ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Kosugi', sans-serif;
+            background: linear-gradient(-60deg, hsl(60, 82.23653582729405%, 66.19048651227949%) 0%, hsl(94.11079767349935, 86.25677639306392%, 83.1028684975849%) 50%, hsl(121.81268744647338, 72.67349318051873%, 88.0445472433599%) 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .health-icon {
+            color: #4CAF50;
+            font-size: 32px;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .form-section h3 {
+            color: #555;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #666;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background-color: #45a049;
+        }
+        
+        .records {
+            margin-top: 30px;
+        }
+        
+        .record-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .record-date {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .record-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .meal-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .sleep-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .radio-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .radio-item input[type="radio"] {
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .stress-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .commute-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .exercise-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .bowel-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .work-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .relax-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .freelance-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .ahj-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .factor-item {
+            background: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .factor-item h4 {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .factor-icon {
+            color: #4CAF50;
+            font-size: 24px;
+        }
+        
+        .symptom-item {
+            background: #fff5f5;
+            border: 1px solid #ffcccb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .symptom-item h4 {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 8px;
+        }
+        
+        .symptom-buttons {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .date-input {
+            font-size: 20px !important;
+            padding: 15px !important;
+            font-weight: 600;
+            background-color: #f0f8ff;
+            border: 2px solid #4CAF50 !important;
+        }
+        
+        .analysis-section {
+            background: #f0f8ff;
+            border: 1px solid #b0d4f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .analysis-section h4 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+        
+        .correlation-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .correlation-strong {
+            border-left-color: #f44336;
+        }
+        
+        .correlation-moderate {
+            border-left-color: #ff9800;
+        }
+        
+        .correlation-weak {
+            border-left-color: #4caf50;
+        }
+        
+        .percentage {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span class="material-icons health-icon">health_and_safety</span>
+            健康管理アプリ
+        </h1>
+        
+        <form id="healthForm">
+            <div class="form-section">
+                <h3>記録日</h3>
+                <div class="form-group">
+                    <input type="date" id="date" name="date" required class="date-input">
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>体調要因</h3>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">bedtime</span>
+                        睡眠時間
+                    </h4>
+                    <div class="sleep-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="sleepHours" value="4" id="sleep4">
+                            <label for="sleep4">４時間以下</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="sleepHours" value="5" id="sleep5">
+                            <label for="sleep5">５時間</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="sleepHours" value="6" id="sleep6">
+                            <label for="sleep6">６時間</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="sleepHours" value="7" id="sleep7">
+                            <label for="sleep7">７時間</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="sleepHours" value="8" id="sleep8">
+                            <label for="sleep8">８時間</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">restaurant</span>
+                        食事摂取
+                    </h4>
+                    <div class="meal-buttons">
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="meals" value="breakfast" id="breakfast">
+                            <label for="breakfast">朝食</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="meals" value="lunch" id="lunch">
+                            <label for="lunch">昼食</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="meals" value="dinner" id="dinner">
+                            <label for="dinner">夕食</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" name="meals" value="snack" id="snack">
+                            <label for="snack">間食</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">commute</span>
+                        通勤方法
+                    </h4>
+                    <div class="commute-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="commute" value="train-walk" id="trainWalk">
+                            <label for="trainWalk">電車＋徒歩</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="commute" value="train-bus" id="trainBus">
+                            <label for="trainBus">電車＋バス</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="commute" value="car" id="car">
+                            <label for="car">車</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="commute" value="holiday" id="holiday">
+                            <label for="holiday">休み</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">work</span>
+                        仕事の件数
+                    </h4>
+                    <div class="work-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="workCount" value="0-1" id="work01">
+                            <label for="work01">０〜１</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="workCount" value="2-3" id="work23">
+                            <label for="work23">２〜３</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="workCount" value="4-5" id="work45">
+                            <label for="work45">４〜５</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="workCount" value="5+" id="work5plus">
+                            <label for="work5plus">５〜</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="workCount" value="holiday" id="workHoliday">
+                            <label for="workHoliday">休み</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">fitness_center</span>
+                        運動量
+                    </h4>
+                    <div class="exercise-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="exercise" value="nothing" id="exerciseNothing">
+                            <label for="exerciseNothing">Nothing</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="exercise" value="light" id="exerciseLight">
+                            <label for="exerciseLight">Light</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="exercise" value="usually" id="exerciseUsually">
+                            <label for="exerciseUsually">Usually</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="exercise" value="hard" id="exerciseHard">
+                            <label for="exerciseHard">Hard</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">wc</span>
+                        排便
+                    </h4>
+                    <div class="bowel-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="bowel" value="yes" id="bowelYes">
+                            <label for="bowelYes">あり</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="bowel" value="no" id="bowelNo">
+                            <label for="bowelNo">なし</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">psychology</span>
+                        ストレス
+                    </h4>
+                    <div class="stress-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="stress" value="yes" id="stressYes">
+                            <label for="stressYes">あり</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="stress" value="no" id="stressNo">
+                            <label for="stressNo">なし</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">spa</span>
+                        リラックスタイム
+                    </h4>
+                    <div class="relax-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="relaxTime" value="yes" id="relaxYes">
+                            <label for="relaxYes">あり</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="relaxTime" value="no" id="relaxNo">
+                            <label for="relaxNo">なし</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">laptop_mac</span>
+                        Freelance time
+                    </h4>
+                    <div class="freelance-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="freelanceTime" value="yes" id="freelanceYes">
+                            <label for="freelanceYes">あり</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="freelanceTime" value="no" id="freelanceNo">
+                            <label for="freelanceNo">なし</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="factor-item">
+                    <h4>
+                        <span class="material-icons factor-icon">favorite</span>
+                        AHJ
+                    </h4>
+                    <div class="ahj-buttons">
+                        <div class="radio-item">
+                            <input type="radio" name="ahj" value="peace" id="ahjPeace">
+                            <label for="ahjPeace">こころの平和</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="ahj" value="conflict" id="ahjConflict">
+                            <label for="ahjConflict">葛藤</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="ahj" value="fear" id="ahjFear">
+                            <label for="ahjFear">怖れ</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="ahj" value="forgive" id="ahjForgive">
+                            <label for="ahjForgive">ゆるす</label>
+                        </div>
+                        <div class="radio-item">
+                            <input type="radio" name="ahj" value="love" id="ahjLove">
+                            <label for="ahjLove">愛</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>体調症状</h3>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="headache" id="headache">
+                        <label for="headache">頭痛</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="fatigue" id="fatigue">
+                        <label for="fatigue">倦怠感</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="soreThroat" id="soreThroat">
+                        <label for="soreThroat">喉の痛み</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="nasalCongestion" id="nasalCongestion">
+                        <label for="nasalCongestion">鼻詰まり</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="phlegm" id="phlegm">
+                        <label for="phlegm">痰が出る</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="stomachPain" id="stomachPain">
+                        <label for="stomachPain">腹痛</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="eyeFatigue" id="eyeFatigue">
+                        <label for="eyeFatigue">目の疲れ</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="symptoms" value="other" id="other">
+                        <label for="other">その他</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">記録を保存</button>
+        </form>
+        
+        <div class="records">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>記録履歴</h3>
+                <div>
+                    <button type="button" onclick="analyzePatterns()" class="btn" style="width: auto; margin: 0 10px 0 0; padding: 10px 20px; font-size: 14px;">
+                        パターン分析
+                    </button>
+                    <button type="button" onclick="exportData()" class="btn" style="width: auto; margin: 0 10px 0 0; padding: 10px 20px; font-size: 14px; background-color: #2196F3;">
+                        データエクスポート
+                    </button>
+                    <button type="button" onclick="deleteTodayRecord()" class="btn" style="width: auto; margin: 0; padding: 10px 20px; font-size: 14px; background-color: #f44336;">
+                        今日の記録削除
+                    </button>
+                </div>
+            </div>
+            <div id="recordsList"></div>
+            <div id="analysisResult" style="margin-top: 30px;"></div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
