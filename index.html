@@ -85,6 +85,15 @@
         input[type="checkbox"] {
             width: auto;
             margin-right: 10px;
+            -webkit-appearance: checkbox;
+            -moz-appearance: checkbox;
+            appearance: checkbox;
+        }
+        
+        input[type="radio"] {
+            -webkit-appearance: radio;
+            -moz-appearance: radio;
+            appearance: radio;
         }
         
         .checkbox-group {
@@ -96,6 +105,24 @@
         .checkbox-item {
             display: flex;
             align-items: center;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .checkbox-item:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .checkbox-item:active {
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+        
+        .checkbox-item label {
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
         }
         
         .btn {
@@ -164,11 +191,32 @@
         .radio-item {
             display: flex;
             align-items: center;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        
+        .radio-item:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .radio-item:active {
+            background-color: rgba(76, 175, 80, 0.2);
         }
         
         .radio-item input[type="radio"] {
             width: auto;
             margin-right: 8px;
+            min-width: 16px;
+            min-height: 16px;
+        }
+        
+        .radio-item label {
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            flex: 1;
         }
         
         .stress-buttons {
