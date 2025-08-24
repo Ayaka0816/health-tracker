@@ -14,10 +14,12 @@
         }
         
         body {
-            font-family: 'Kosugi', sans-serif;
+            font-family: 'Kosugi', -webkit-system-font, -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(-60deg, hsl(60, 82.23653582729405%, 66.19048651227949%) 0%, hsl(94.11079767349935, 86.25677639306392%, 83.1028684975849%) 50%, hsl(121.81268744647338, 72.67349318051873%, 88.0445472433599%) 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
+            -webkit-font-smoothing: antialiased;
         }
         
         .container {
@@ -74,7 +76,10 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
         
         input[type="checkbox"] {
@@ -103,6 +108,9 @@
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         
         .btn:hover {
@@ -268,6 +276,8 @@
             font-weight: 600;
             background-color: #f0f8ff;
             border: 2px solid #4CAF50 !important;
+            -webkit-appearance: none;
+            -moz-appearance: none;
         }
         
         .analysis-section {
